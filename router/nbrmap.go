@@ -6,6 +6,7 @@ import (
 )
 
 type nbrnode struct {
+	hash string
 }
 
 type nbrmap struct {
