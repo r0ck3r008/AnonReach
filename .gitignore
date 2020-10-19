@@ -1,3 +1,4 @@
-AnonReach
 tmp/*
 !tmp/.gitignore
+bin/*
+!bin/.gitkeep
