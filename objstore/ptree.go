@@ -13,7 +13,7 @@ type pnode struct {
 // ptree, the prefix tree is used as a hash map for finding if a particular object
 // string exists. This seems to be a cheper and more efficient solution than
 // matching the string in O(n) time and store each string in O(n) space.
-type ptree struct {
+type Ptree struct {
 	root_p *pnode
 	size   int
 }
@@ -66,7 +66,7 @@ func (pn_p *pnode) exists(sfin *string) bool {
 
 // insert inserts a new hash string to the Prefix Tree
 // Calls the 'insert' function of the root node
-func (pt_p *ptree) insert(sin *string) {
+func (pt_p *Ptree) insert(sin *string) {
 	if pt_p.root_p == nil {
 		pt_p.root_p = &pnode{}
 	}
@@ -76,6 +76,6 @@ func (pt_p *ptree) insert(sin *string) {
 
 // exists checks if the given hash string exists in the tree.
 // Calls the 'exists' function of the root node.
-func (pt_p *ptree) exists(sfin *string) bool {
+func (pt_p *Ptree) Exists(sfin *string) bool {
 	return pt_p.root_p.exists(sfin)
 }
