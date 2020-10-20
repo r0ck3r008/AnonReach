@@ -4,10 +4,13 @@ package objstore
 import utils "github.com/r0ck3r008/AnonReach/utils"
 
 // pnode struct, the prefix node object stores pointers to other child objects as well as
-// what slice of the string the current level represents.
+// what slice of the string the current level represents. It also has the void interface{}
+// which either can have *net.UDPAddr or a message of type [utils.MAXBUFSZ]byte
 type pnode struct {
-	slice string
-	child map[byte]*pnode
+	slice   string
+	child   map[byte]*pnode
+	payload interface{}
+	isaddr  bool
 }
 
 // ptree, the prefix tree is used as a hash map for finding if a particular object
