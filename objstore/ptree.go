@@ -23,62 +23,67 @@ type Ptree struct {
 
 // hmap_ins is a helper function to 'insert', inserts a new string slice into the
 // hash map of current level.
-func (pn_p *pnode) hmap_ins(sin *string, count int) {
+func (pn_p *pnode) hmap_ins(sin *string, val interface{}, isaddr bool, count int) {
 
 	var s string = (*sin)[count:]
 	if node, ok := pn_p.child[(*sin)[count]]; ok {
-		node.insert(&s)
+		node.insert(&s, val, isaddr)
 	} else {
 		pn_p.child[(*sin)[count]] = &pnode{
 			s,
 			map[byte]*pnode{},
+			nil,
+			false,
 		}
 	}
 }
 
 // insert The real function that recursively calls 'insert' on node levels in order
 // to chop the string.
-func (pn_p *pnode) insert(sin *string) {
+func (pn_p *pnode) insert(sin *string, val interface{}, isaddr bool) {
 	count := utils.Getlvl(&(pn_p.slice), sin)
 	if count < len(*sin) {
-		pn_p.hmap_ins(sin, count)
+		pn_p.hmap_ins(sin, val, isaddr, count)
 	}
 
 	if count < len(pn_p.slice) {
 		var ol_slice string = pn_p.slice
 		pn_p.slice = ol_slice[:count]
-		pn_p.hmap_ins(&ol_slice, count)
+		pn_p.hmap_ins(&ol_slice, pn_p.payload, pn_p.isaddr, count)
+		pn_p.payload = nil
+		pn_p.isaddr = false
 	}
 }
 
-// exists is the function that recursively calls itself on child levels and checks if
+// getval is the function that recursively calls itself on child levels and checks if
 // the given string is consumed fully.
-func (pn_p *pnode) exists(sfin *string) bool {
+func (pn_p *pnode) getval(sfin *string) (interface{}, bool) {
 	var count int = utils.Getlvl(&(pn_p.slice), sfin)
 	if count < len(*sfin) {
 		var s string = (*sfin)[count:]
 		if node, err := pn_p.child[(*sfin)[count]]; !err {
-			return node.exists(&s)
+			return node.getval(&s)
 		} else {
-			return false
+			return nil, false
 		}
 	} else {
-		return true
+		return pn_p.payload, true
 	}
 }
 
-// insert inserts a new hash string to the Prefix Tree
+// Insert inserts a new hash string to the Prefix Tree
 // Calls the 'insert' function of the root node
-func (pt_p *Ptree) insert(sin *string) {
+func (pt_p *Ptree) Insert(sin *string, val interface{}, isaddr bool) {
 	if pt_p.root_p == nil {
 		pt_p.root_p = &pnode{}
 	}
 
-	pt_p.root_p.insert(sin)
+	pt_p.root_p.insert(sin, val, isaddr)
 }
 
-// exists checks if the given hash string exists in the tree.
-// Calls the 'exists' function of the root node.
-func (pt_p *Ptree) Exists(sfin *string) bool {
-	return pt_p.root_p.exists(sfin)
+// GetVal checks if the given hash string exists in the tree.
+// Calls the 'GetVal' function of the root node and fetches the
+// value of stored hash
+func (pt_p *Ptree) GetVal(sfin *string) (interface{}, bool) {
+	return pt_p.root_p.getval(sfin)
 }
