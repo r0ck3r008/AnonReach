@@ -2,9 +2,11 @@ package nbrmap
 
 import "fmt"
 import utils "github.com/r0ck3r008/AnonReach/utils"
+import "net"
 
 type nbrnode struct {
-	hash string
+	hash   string
+	addr_p *net.UDPAddr
 }
 
 type NbrMap struct {
