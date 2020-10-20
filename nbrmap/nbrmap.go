@@ -19,7 +19,7 @@ func (nmap_p *NbrMap) NbrMapInit(hash *string) {
 	nmap_p.arr = make(map[byte][]*nbrnode)
 }
 
-func (nmap_p *NbrMap) AddNbr(hash *string) {
+func (nmap_p *NbrMap) AddNbr(hash *string, addr_p *net.UDPAddr) {
 	var lvl int = utils.Getlvl(&(nmap_p.hash), hash)
 	var indx byte = nmap_p.hash[lvl]
 
@@ -31,7 +31,7 @@ func (nmap_p *NbrMap) AddNbr(hash *string) {
 		nmap_p.arr[indx] = make([]*nbrnode, utils.MAXDEPTH)
 	}
 	hash_str := *hash
-	node := &nbrnode{hash_str}
+	node := &nbrnode{hash_str, addr_p}
 	nmap_p.arr[indx] = append(nmap_p.arr[indx], node)
 }
 
