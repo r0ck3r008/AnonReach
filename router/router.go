@@ -27,19 +27,3 @@ func (route_p *Router) RouterInit(hash *string, bind_port int) {
 
 	route_p.nmap_p.NbrMapInit(hash)
 }
-
-func (route_p *Router) Publish() {
-
-}
-
-func (route_p *Router) Unpublish() {
-
-}
-
-func (route_p *Router) RouteToObj() {
-
-}
-
-func (route_p *Router) RouteToNode() {
-
-}
