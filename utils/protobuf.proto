@@ -1,0 +1,14 @@
+syntax = "proto3";
+package utils;
+
+message UDPMsg {
+	string src_hash = 1;
+	string dst_hash = 2;
+	enum Dolr {
+		Publish = 0;
+		Unpublish = 1;
+		Route = 2;
+	}
+	Dolr type = 3;
+	string msg = 4;
+}
