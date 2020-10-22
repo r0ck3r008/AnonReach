@@ -1,10 +1,14 @@
 package router
 
-import "fmt"
-import "net"
-import "os"
-import objstore "github.com/r0ck3r008/AnonReach/objstore"
-import nbrmap "github.com/r0ck3r008/AnonReach/nbrmap"
+import (
+	"fmt"
+	proto "github.com/golang/protobuf/proto"
+	nbrmap "github.com/r0ck3r008/AnonReach/nbrmap"
+	objstore "github.com/r0ck3r008/AnonReach/objstore"
+	defs "github.com/r0ck3r008/AnonReach/utils/defs"
+	"net"
+	"os"
+)
 
 type Router struct {
 	ucon_p *net.UDPConn

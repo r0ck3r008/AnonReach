@@ -1,7 +1,9 @@
 // Package which helps to form a space and time efficient hash map for strings.
 package objstore
 
-import utils "github.com/r0ck3r008/AnonReach/utils"
+import (
+	utils "github.com/r0ck3r008/AnonReach/utils"
+)
 
 // pnode struct, the prefix node object stores pointers to other child objects as well as
 // what slice of the string the current level represents. It also has the void interface{}
