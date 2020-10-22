@@ -33,7 +33,6 @@ func (route_p *Router) RouterInit(hash *string, bind_port int) {
 }
 
 func (route_p *Router) SrvLoop() {
-	// TODO: make sure the packets are processed in parallel
 	var cmdr []byte
 	for {
 		_, raddr_p, err := route_p.ucon_p.ReadFromUDP(cmdr)
@@ -47,15 +46,13 @@ func (route_p *Router) SrvLoop() {
 			os.Exit(-1)
 		}
 
-		switch pkt_p.PlType {
-		case defs.UDPMsg_Publish:
-			route_p.publish(pkt_p, raddr_p)
-		case defs.UDPMsg_Unpublish:
-			route_p.unpublish(pkt_p, raddr_p)
-		case defs.UDPMsg_Route:
-			route_p.route(pkt_p, raddr_p)
-		default:
-			fmt.Fprintf(os.Stderr, "[!]UDP Recv: Wong packet type\n")
+		if pkt_p.Flag&defs.UDPMsg_Publish == defs.UDPMsg_Publish {
+			go route_p.publish(pkt_p, raddr_p)
+		} else if pkt_p.Flag&defs.UDPMsg_Unpublish == defs.UDPMsg_Unpublish {
+			go route_p.unpublish(pkt_p, raddr_p)
+		} else if pkt_p.Flag&defs.UDPMsg_Route == defs.UDPMsg_Route {
+			go route_p.route(pkt_p, raddr_p)
 		}
+		cmdr = cmdr[0:]
 	}
 }
