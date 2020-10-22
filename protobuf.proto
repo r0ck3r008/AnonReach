@@ -15,6 +15,7 @@ message UDPMsg {
 		Publish = 1;
 		Unpublish = 2;
 		Route = 3;
+		NewNode = 4;
 	}
 	Dolr Flag = 3;
 	PayloadT Payload = 4;
