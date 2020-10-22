@@ -40,10 +40,18 @@ func (route_p *Router) publish(pkt_p *defs.UDPMsg, addr_p *net.UDPAddr) {
 // unpublish function checks if it has the dest_hash in the objmap, if yes, it deletes it,
 // decreases the hop count and passes along to all its neighbours
 func (route_p *Router) unpublish(pkt_p *defs.UDPMsg, addr_p *net.UDPAddr) {
+	pkt_p.Hops--
+	if pkt_p.Hops < 0 {
+		return
+	}
 }
 
 // route packet checks if it has a pointer to the dest_hash being referred to in the packet
 // if yes, it sends back the Upaddress related to it to the requestor otherwise sends to one of its
 // neighbours
 func (route_p *Router) route(pkt_p *defs.UDPMsg, addr_p *net.UDPAddr) {
+	pkt_p.Hops--
+	if pkt_p.Hops < 0 {
+		return
+	}
 }
