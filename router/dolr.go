@@ -1,5 +1,9 @@
 package router
 
+import (
+	defs "github.com/r0ck3r008/AnonReach/utils/defs"
+	"net"
+)
 
 // publish function checks to see if the dest_hash can be matched to one of its neighbours
 // In case it can be, it is just relayed along. It also checks if the current node can be
