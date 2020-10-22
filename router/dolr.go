@@ -1,17 +1,11 @@
 package router
 
-func (route_p *Router) Publish() {
+
 
 }
 
-func (route_p *Router) Unpublish() {
 
 }
 
-func (route_p *Router) RouteToObj() {
-
-}
-
-func (route_p *Router) RouteToNode() {
-
+func (route_p *Router) route(pkt_p *defs.UDPMsg, addr_p *net.UDPAddr) {
 }
