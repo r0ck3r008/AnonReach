@@ -1,6 +1,7 @@
 package nbrmap
 
 import "fmt"
+import defs "github.com/r0ck3r008/AnonReach/utils/defs"
 import utils "github.com/r0ck3r008/AnonReach/utils"
 import "net"
 
@@ -24,11 +25,11 @@ func (nmap_p *NbrMap) AddNbr(hash *string, addr_p *net.UDPAddr) {
 	var indx byte = nmap_p.hash[lvl]
 
 	if node_slice, err := nmap_p.arr[indx]; !err {
-		if len(node_slice) >= utils.MAXDEPTH {
+		if len(node_slice) >= defs.MAXDEPTH {
 			return
 		}
 	} else {
-		nmap_p.arr[indx] = make([]*nbrnode, utils.MAXDEPTH)
+		nmap_p.arr[indx] = make([]*nbrnode, defs.MAXDEPTH)
 	}
 	hash_str := *hash
 	node := &nbrnode{hash_str, addr_p}
