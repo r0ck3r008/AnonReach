@@ -3,3 +3,4 @@ tmp/*
 bin/*
 !bin/.gitkeep
 utils/defs/protobuf.pb.go
+AnonReach
