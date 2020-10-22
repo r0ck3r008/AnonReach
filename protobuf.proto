@@ -2,6 +2,11 @@ syntax = "proto3";
 package main;
 
 option go_package = "utils/defs";
+message PayloadT {
+	bool IsAddr = 1;
+	string Msg = 2;
+}
+
 message UDPMsg {
 	string src_hash = 1;
 	string dst_hash = 2;
@@ -13,4 +18,5 @@ message UDPMsg {
 	}
 	Dolr pl_type = 3;
 	string payload = 4;
+	PayloadT Payload = 4;
 }
