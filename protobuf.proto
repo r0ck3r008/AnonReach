@@ -8,15 +8,14 @@ message PayloadT {
 }
 
 message UDPMsg {
-	string src_hash = 1;
-	string dst_hash = 2;
+	string SrcHash = 1;
+	string DstHash = 2;
 	enum Dolr {
 		Dummy = 0;
 		Publish = 1;
 		Unpublish = 2;
 		Route = 3;
 	}
-	Dolr pl_type = 3;
-	string payload = 4;
+	Dolr Flag = 3;
 	PayloadT Payload = 4;
 }
