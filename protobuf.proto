@@ -18,4 +18,5 @@ message UDPMsg {
 	}
 	Dolr Flag = 3;
 	PayloadT Payload = 4;
+	uint32 Hops = 5;
 }
