@@ -1,0 +1,16 @@
+syntax = "proto3";
+package main;
+
+option go_package = "utils/defs";
+message UDPMsg {
+	string src_hash = 1;
+	string dst_hash = 2;
+	enum Dolr {
+		Dummy = 0;
+		Publish = 1;
+		Unpublish = 2;
+		Route = 3;
+	}
+	Dolr pl_type = 3;
+	string payload = 4;
+}
